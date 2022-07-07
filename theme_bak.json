@@ -1,0 +1,20 @@
+{
+	"themes" : [
+		{
+			"rec_key": "1",
+			"filename": "index1.html",
+			"thumbnail": "index1.png",
+			"title": "기본",
+			"desc": "현재일시, 반납예정일, 대출기간.",
+			"isOnline": false
+		},
+		{
+			"rec_key": "2",
+			"filename": "index2.html",
+			"thumbnail": "index2.png",
+			"title": "테마 2",
+			"desc": "현재일시, 반납예정일, 대출기간, 휴관일, 날씨.",
+			"isOnline": false
+		}
+	]
+}

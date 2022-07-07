@@ -1,0 +1,59 @@
+@font-face {
+  font-family: 'Do Hyeon';
+  src: local('Do Hyeon'),
+  url(../assets/DoHyeon-Regular.woff) format("woff")
+}
+
+html, body {
+  font-family: 'Do Hyeon', sans-serif!important;
+}
+
+.row {
+  margin-left: 0!important;
+  margin-right: 0!important;
+}
+
+header, footer {
+  height: 20%;
+}
+
+.contentbody {
+  height: 60%;
+}
+
+.header-left-col {
+   background-color: #83b345;
+}
+
+.header-right-col {
+  background-color: #ce1855;
+}
+
+.contentbody-left-col, .contentbody-right-col, .footer-left-col, .footer-right-col {
+  background-color: #e2d1bd;
+}
+
+.header-text {
+  font-size: 70px;
+  color: white;
+}
+
+.year-value, .day-value, .time-value, .loan_period-text, .loan_period-value, .year-unit, .month-unit, .date-unit, .loan_period-unit {
+  font-size: 70px;
+}
+
+.loan_period-value {
+  color: #ce1855;
+}
+
+.month-value, .date-value {
+  font-size: 130px;
+}
+
+#month-loan, #date-loan {
+  color: #83b345;
+}
+
+#month-return, #date-return {
+  color: #ce1855;
+}

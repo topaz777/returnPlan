@@ -1,0 +1,137 @@
+@font-face {
+  font-family: 'Do Hyeon';
+  src: local('Do Hyeon'),
+  url(../assets/DoHyeon-Regular.woff) format("woff")
+}
+
+html, body {
+  font-family: 'Do Hyeon', sans-serif!important;
+}
+
+.row {
+  margin-left: 0!important;
+  margin-right: 0!important;
+}
+
+header {
+  height: 30%;
+}
+
+footer {
+  height: 20%;
+}
+
+.contentbody {
+  height: 50%;
+}
+
+.h-30 {
+  height: 30%!important;
+}
+
+.h-70 {
+  height: 70%!important;
+}
+
+.h-80 {
+  height: 80%!important;
+}
+
+.header-left-col {
+   background-color: #83b345;
+}
+
+.header-right-col {
+  background-color: #83b345;
+}
+
+.contentbody-left-col, .contentbody-right-col, .footer {
+  background-color: #e2d1bd;
+}
+
+.header-text {
+  font-size: 90px;
+  color: white;
+}
+
+.year-value, .return-unit {
+  font-size: 70px;
+}
+
+.loan-unit {
+  font-size: 55px;
+}
+
+.loan_period-text, .loan_period-value, .loan_period-unit {
+  font-size: 48px;
+}
+
+.loan_period-value {
+  color: #ce1855;
+}
+
+.return-value {
+  font-size: 130px;
+}
+
+.loan-value, .time-value {
+  font-size: 65px;
+}
+
+#month-loan, #date-loan {
+  color: #83b345;
+}
+
+#year-return, #month-return, #date-return {
+  color: #ce1855;
+}
+
+.badge-month {
+  font-weight: lighter!important;
+  font-size: 18px!important;
+}
+
+.badge-holiday {
+  font-weight: lighter!important;
+  font-size: 14px!important;
+}
+
+/* ------------------------------------------------------------------------- */
+
+.cal-month,
+.cal-days,
+.cal-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  align-items: center;
+}
+.cal-month-name {
+  grid-column-start: 2;
+  grid-column-end: 7;
+  text-align: center;
+}
+.cal-weekday,
+.cal-btn {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  height: 3rem;
+  padding: 0;
+}
+.cal-btn:not([disabled]) {
+  font-weight: 500;
+}
+
+.cal-btn[disabled] {
+  opacity: .5;
+}
+.cal-weekdays {
+  border-bottom: 1px solid;
+}
+
+/* ------------------------------------------------------------------------- */
+
+.card-header.weather-card {
+  min-height: 120px;
+}

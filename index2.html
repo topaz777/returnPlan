@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html class="h-100">
+  <head>
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <link rel="stylesheet" href="./css/index2.css">
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <title>도서관 안내</title>
+  </head>
+
+  <body class="h-100">
+    <div class="w-100 h-100">
+
+      <header>
+        <div class="row h-100">
+          <div class="col-4 header-left-col">
+            <div class="row h-100 align-items-center text-center">
+              <div class="col">
+                <span class="header-text">반납예정일</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-8 header-right-col">
+            <div class="row h-100 align-items-center text-center">
+              <div class="col">
+                <div class="row row-cols-3">
+                  <!-- <div class="col">
+                    <span class="return-value year-value" id="year-return">YY</span>
+                    <span class="return-unit year-unit">년</span>
+                  </div> -->
+                  <div class="col">
+                    <span class="return-value month-value" id="month-return">MM</span>
+                    <span class="return-unit month-unit">월</span>
+                  </div>
+                  <div class="col">
+                    <span class="return-value date-value" id="date-return">DD</span>
+                    <span class="return-unit date-unit">일</span>
+                  </div>
+                  <div class="col">
+                    <span class="return-value day-value" id="day-return">D</span>
+                    <span class="return-unit day-unit">요일</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="container-fluid px-0 contentbody">
+        <div class="row row-cols-2 h-100">
+          <div class="col contentbody-left-col">
+            <div class="row h-100 align-items-center">
+              <div class="col h-80">
+
+                <div class="card card-custom rounded-3 border-0 shadow h-100">
+                  <div class="card-body">
+                    <div class="row align-items-center h-100">
+                      <div class="col">
+                        <div class="cal">
+                          <div class="cal-weekdays text-muted">
+                            <div class="cal-weekday text-danger">일</div>
+                            <div class="cal-weekday">월</div>
+                            <div class="cal-weekday">화</div>
+                            <div class="cal-weekday">수</div>
+                            <div class="cal-weekday">목</div>
+                            <div class="cal-weekday">금</div>
+                            <div class="cal-weekday text-primary">토</div>
+                          </div>
+                          <div class="cal-days" id="cal_date_area"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col contentbody-right-col">
+            <div class="row h-100 align-items-center">
+              <div class="col h-80">
+
+                <div class="card card-custom rounded-3 border-0 d-block shadow weather-card h-100">
+                  <div class="card-header weather-card border-0 h-30">
+                    <div class="row justify-content-start" id="weatherCurrent">
+                      <!-- CurrentWeather Area -->
+                    </div>
+                  </div>
+                  <div class="card-body h-70">
+                    <div class="row align-items-center h-100" id="weatherForecast">
+                      <!-- WeatherForecast Area -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="row h-100">
+          <div class="col-5 footer footer-left-col">
+            <div class="row h-100 align-items-center text-center">
+              <div class="col">
+                <span class="loan-value month-value" id="month-loan">MM</span>
+                <span class="loan-unit month-unit">월</span>
+              </div>
+              <div class="col">
+                <span class="loan-value date-value" id="date-loan">DD</span>
+                <span class="loan-unit date-unit">일</span>
+              </div>
+              
+              <div class="col">
+                <span class="loan-value day-value" id="day-loan">D</span>
+                <span class="loan-unit day-unit">요일</span>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="col-4 footer footer-mid-col">
+            <div class="row h-100 align-items-center text-center">
+              <div class="col">
+                <span class="time-value" id="time-value">오전 HH:MI:SS</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col footer footer-right-col">
+            <div class="row h-100 align-items-center text-center">
+              <div class="col">
+                <span class="loan_period-text">대출기간 </span>
+                <span class="loan_period-value" id="loan_period-value">NN</span>
+                <span class="loan_period-unit">일</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+
+    <script>
+      window.$ = window.jQuery = require('jquery');
+    </script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./index2.js"></script>
+
+  </body>
+</html>

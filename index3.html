@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html class="h-100">
+  <head>
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <link rel="stylesheet" href="./css/index3.css">
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <title>도서관 안내</title>
+  </head>
+
+  <body class="d-flex h-100">
+    <div class="d-flex w-100 h-100 px-3 mx-auto flex-column" style="background-color:#f3f6f9">
+      <header class="mb-auto"></header>
+
+
+      <div class="row row-cols-3">
+
+<!-- ROW 1 -->
+        <div class="col-sm-6 col-md-3 mb-2">
+          <span class="fs-4">
+            반납예정일
+          </span>
+        </div>
+        <div class="col-sm-6 col-md-4 gx-sm-5 mb-2"></div>
+        <div class="col-md-5 d-none d-md-block gx-md-5 mb-2"></div>
+
+<!-- ROW 2 -->
+        <div class="col-sm-6 col-md-3 text-center">
+          <div class="card border-0 shadow text-center mx-auto d-block custom-calendar">
+            <div class="card-header bg-danger">
+              <span class="fs-2" id="rpd_month"></span>
+            </div>
+            <div class="card-body pt-4 align-middle">
+              <div>
+                <strong class="card-text" id="rpd_date"></strong>
+              </div>
+              <div>
+                <span id="rpd_day"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-4 gx-sm-5">
+          <div class="card card-custom rounded-3 border-0 shadow">
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <div class="cal">
+                    <div class="cal-weekdays text-muted">
+                      <div class="cal-weekday text-danger">일</div>
+                      <div class="cal-weekday">월</div>
+                      <div class="cal-weekday">화</div>
+                      <div class="cal-weekday">수</div>
+                      <div class="cal-weekday">목</div>
+                      <div class="cal-weekday">금</div>
+                      <div class="cal-weekday text-primary">토</div>
+                    </div>
+                    <div class="cal-days" id="cal_date_area"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-5 d-none d-md-block gx-md-5">
+          <div class="card card-custom rounded-3 border-0 d-block shadow weather-card">
+            <div class="card-header weather-card border-0 pt-6">
+              <div class="row justify-content-start" id="weatherCurrent">
+                <!-- CurrentWeather Area -->
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="row" id="weatherForecast">
+                <!-- WeatherForecast Area -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<!-- ROW 3 -->
+      <div class="col-12 d-none d-md-block mt-3 mb-2">
+        <span class="fs-4">인기자료</span>
+      </div>
+
+<!-- ROW 4 -->
+      <div class="col-12 d-none d-md-block">
+        <div class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000" id="carousel_loanBest">
+          <div class="carousel-inner" id="loanBest_contents">
+            <!-- LoanBest Area -->
+          </div>
+        </div>
+      </div>
+
+<!-- ROW 5 -->
+      <div class="col-12 d-none d-xxl-block mt-3 mb-2">
+        <span class="fs-4">신착자료</span>
+      </div>
+
+<!-- ROW 6 -->
+      <div class="col-12 d-none d-xxl-block">
+        <div class="carousel slide" data-bs-ride="carousel" data-bs-interval="6000" id="carousel_newBook">
+          <div class="carousel-inner" id="newBook_contents">
+            <!-- NewBook Area -->
+          </div>
+        </div>
+      </div>
+
+      <footer class="mt-auto text-end"></footer>
+    </div>
+
+    <script>
+      window.$ = window.jQuery = require('jquery');
+    </script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./renderer.js"></script>
+
+  </body>
+</html>

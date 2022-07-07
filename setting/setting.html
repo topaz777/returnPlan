@@ -1,0 +1,261 @@
+<!-- 640 x 690 -->
+<!DOCTYPE html>
+<html class="h-100">
+  <head>
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <link rel="stylesheet" href="../css/setting.css">
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <title>서버설정</title>
+  </head>
+  <body class="h-100">
+    <div class="container-fluid content h-100 py-2">
+      <div class="d-flex align-items-start h-100">
+        <div class="nav flex-column nav-pills me-3 my-2" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+          <button class="nav-link active" id="connection-tab-btn" data-bs-toggle="pill" data-bs-target="#connection-tab" data-item="connection" type="button" role="tab" aria-controls="connection-tab" aria-selected="true">서버</button>
+          <hr class="my-2 mx-4">
+          <button class="nav-link" id="grade-tab-btn" data-bs-toggle="pill" data-bs-target="#grade-tab" data-item="grade" type="button" role="tab" aria-controls="grade-tab" aria-selected="false" disabled>직급</button>
+          <button class="nav-link" id="shelf-tab-btn" data-bs-toggle="pill" data-bs-target="#shelf-tab" data-item="shelf" type="button" role="tab" aria-controls="shelf-tab" aria-selected="false" disabled>자료실</button>
+          <button class="nav-link" id="manage_code-tab-btn" data-bs-toggle="pill" data-bs-target="#manage_code-tab" data-item="manage_code" type="button" role="tab" aria-controls="manage_code-tab" aria-selected="false" disabled>도서관</button>
+          <hr class="my-2 mx-4">
+          <!-- <button class="nav-link" id="display-tab-btn" data-bs-toggle="pill" data-bs-target="#display-tab" data-item="display" type="button" role="tab" aria-controls="display-tab" aria-selected="false">화면</button> -->
+          <button class="nav-link" id="theme-tab-btn" data-bs-toggle="pill" data-bs-target="#theme-tab" data-item="theme" type="button" role="tab" aria-controls="theme-tab" aria-selected="false">테마</button>
+          <hr class="m-4">
+          <button class="nav-link" id="setting-close-btn" data-bs-toggle="modal" data-bs-target="#modalCloseChoice" type="button">닫기</button>
+        </div>
+
+        <div class="tab-content w-100 h-100 px-4 py-1" id="v-pills-tabContent">
+          <div class="tab-pane fade h-100 show active" id="connection-tab" role="tabpanel" aria-labelledby="connection-tab-btn">
+            <ul class="nav nav-tabs nav-fill my-2" id="pills-tab" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link online_status active" id="connection_online_btn" value="online" data-bs-toggle="tab" data-bs-target="#connection-online-tab" data-item="online" type="button" role="tab" aria-controls="connection-online-tab" aria-selected="true"><img src="../assets/check.png" id="check_online" class="using_mode rounded float-start d-none">온라인</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link online_status" id="connection_offline_btn" value="offline" data-bs-toggle="tab" data-bs-target="#connection-offline-tab" data-item="offline" type="button" role="tab" aria-controls="connection-offline-tab" aria-selected="false"><img src="../assets/check.png" id="check_offline" class="using_mode rounded float-start d-none">오프라인</button>
+              </li>
+            </ul>
+
+            <div class="tab-content pt-4" id="pills-tabContent">
+              <div class="tab-pane fade show active" id="connection-online-tab" role="tabpanel" aria-labelledby="connection-online-tab">
+                <div class="d-flex flex-column">
+
+                  <h4 class="mb-3">KOLAS DB 정보</h4>
+
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="form-floating mb-2">
+                        <input type="text" class="form-control connection-online-inputs" id="setting_ip" placeholder="192.168.0.1">
+                        <label for="setting_ip">IP</label>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="form-floating mb-2">
+                        <input type="text" class="form-control connection-online-inputs" id="setting_port" placeholder="1521" value="1521">
+                        <label for="setting_port">PORT</label>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="form-floating mb-2">
+                        <input type="text" class="form-control connection-online-inputs" id="setting_sid" placeholder="k3" value="k3">
+                        <label for="setting_sid">SID</label>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="form-floating mb-2">
+                        <input type="text" class="form-control connection-online-inputs" id="setting_user" placeholder="kolas" value="kolas">
+                        <label for="setting_user">USER</label>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="form-floating mb-2">
+                        <input type="password" class="form-control connection-online-inputs" id="setting_pw" placeholder="password" value="eco_kolas3#">
+                        <label for="setting_pw">PASSWORD</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <hr class="my-4 mx-1">
+
+                  <footer class="footer mt-auto">
+                    <div class="d-grid d-block mt-2 text-center">
+                      <button class="btn btn-lg btn-outline-primary" id="btn-connection-online-save">저장</button>
+                      <button class="btn btn-lg btn-outline-dark my-2" id="btn-connection-test" type="button" disabled>테스트</button>
+                    </div>
+                  </footer>
+                </div>
+              </div>
+
+              <div class="tab-pane fade" id="connection-offline-tab" role="tabpanel" aria-labelledby="connection-offline-tab">
+                <div class="d-flex flex-column">
+                  <div class="col-12">
+                    <div class="input-group mb-3">
+                      <div class="form-floating col-9">
+                        <input type="number" class="form-control connection-offline-inputs" name="setting_loan_period" id="setting_loan_period" min="1" placeholder="14" aria-label="14" aria-describedby="btn-connection-offline-save">
+                        <label for="setting_loan_period">대출기간</label>
+                      </div>
+                      <button class="btn btn-outline-primary col-3" type="button" id="btn-connection-offline-save">저장</button>
+                    </div>
+                  </div>
+
+                  <hr class="my-4 mx-1">
+
+                  <div class="col-12">
+                    <h4 class="mb-3">휴관일</h4>
+                    <div class="cal">
+                      <div class="cal-month">
+
+                        <button class="btn cal-btn" id="prev_month" type="button">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+                            <path d="M.88,14.09,4.75,18a1,1,0,0,0,1.42,0h0a1,1,0,0,0,0-1.42L2.61,13H23a1,1,0,0,0,1-1h0a1,1,0,0,0-1-1H2.55L6.17,7.38A1,1,0,0,0,6.17,6h0A1,1,0,0,0,4.75,6L.88,9.85A3,3,0,0,0,.88,14.09Z"/>
+                          </svg>
+                        </button>
+
+                        <strong class="cal-month-name">
+                          <span id="cal_year_area">YYYY</span>
+                          <span> . </span>
+                          <span id="cal_month_area">MM</span>
+                        </strong>
+                        <button class="btn cal-btn" id="next_month" type="button">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+                            <path d="M23.12,9.91,19.25,6a1,1,0,0,0-1.42,0h0a1,1,0,0,0,0,1.41L21.39,11H1a1,1,0,0,0-1,1H0a1,1,0,0,0,1,1H21.45l-3.62,3.61a1,1,0,0,0,0,1.42h0a1,1,0,0,0,1.42,0l3.87-3.88A3,3,0,0,0,23.12,9.91Z"/>
+                          </svg>
+                        </button>
+                      </div>
+
+                      <div class="cal-weekdays text-muted">
+                        <button type="button" class="btn cal-btn cal-weekday setDayHolidayBtn text-danger" id="setDayHolidayBtn-0" data-day="0">일</button>
+                        <button type="button" class="btn cal-btn cal-weekday setDayHolidayBtn" id="setDayHolidayBtn-1" data-day="1">월</button>
+                        <button type="button" class="btn cal-btn cal-weekday setDayHolidayBtn" id="setDayHolidayBtn-2" data-day="2">화</button>
+                        <button type="button" class="btn cal-btn cal-weekday setDayHolidayBtn" id="setDayHolidayBtn-3" data-day="3">수</button>
+                        <button type="button" class="btn cal-btn cal-weekday setDayHolidayBtn" id="setDayHolidayBtn-4" data-day="4">목</button>
+                        <button type="button" class="btn cal-btn cal-weekday setDayHolidayBtn" id="setDayHolidayBtn-5" data-day="5">금</button>
+                        <button type="button" class="btn cal-btn cal-weekday setDayHolidayBtn text-primary" id="setDayHolidayBtn-6" data-day="6">토</button>
+                      </div>
+                      <div class="cal-days" id="cal_date_area"></div>
+                    </div>
+
+                    <span class="badge text-bg-secondary"><span class="visually-hidden">-</span></span> <small class="text-muted">: 고정휴관일,</small> 
+                    <span class="badge text-bg-warning"><span class="visually-hidden">-</span></span> <small class="text-muted">: 지정휴관일,</small> 
+                    <span class="badge holiday-excepted"><span class="visually-hidden">-</span></span> <small class="text-muted">: 휴관일제외</small> 
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-pane fade h-100" id="grade-tab" role="tabpanel" aria-labelledby="grade-tab-btn">
+            <div class="d-flex flex-column h-100">
+              <header>
+                <h5 class="pt-3">직급</h5>
+              </header>
+              
+              <hr class="my-4 mx-1">
+
+              <div class="list-group list-group-checkable mt-3 setting-grade" id="grade-list">
+                <!-- grade-list -->
+              </div>
+
+              <footer class="footer mt-auto">
+                <div class="d-grid d-block mt-2 text-center">
+                  <a href="#" class="btn btn-outline-primary my-2 d-none" id="btn-grade-save">저장</a>
+                </div>
+              </footer>
+            </div>
+          </div>
+
+          <div class="tab-pane fade h-100" id="shelf-tab" role="tabpanel" aria-labelledby="shelf-tab-btn">
+            <div class="d-flex flex-column h-100">
+              <header>
+                <h5 class="pt-3">자료실</h5>
+              </header>
+              
+              <hr class="my-4 mx-1">
+
+              <div class="list-group list-group-checkable mt-3 setting-shelf" id="shelf-list">
+                <!-- shelf-list -->
+              </div>
+
+              <footer class="footer mt-auto">
+                <div class="d-grid d-block mt-2 text-center">
+                  <a href="#" class="btn btn-outline-primary my-2" id="btn-shelf-save">저장</a>
+                </div>
+              </footer>
+            </div>
+          </div>
+
+          <div class="tab-pane fade h-100" id="manage_code-tab" role="tabpanel" aria-labelledby="manage_code-tab-btn">
+            <div class="d-flex flex-column h-100">
+              <header>
+                <h5 class="pt-3">자료실</h5>
+              </header>
+              
+              <hr class="my-4 mx-1">
+              
+              <div class="list-group list-group-checkable mt-3 setting-manage_code" id="manage_code-list">
+                <!-- manage_code-list -->
+              </div>
+
+              <footer class="footer mt-auto">
+                <div class="d-grid d-block mt-2 text-center">
+                  <a href="#" class="btn btn-outline-primary my-2" id="btn-manage_code-save">저장</a>
+                </div>
+              </footer>
+            </div>
+          </div>
+
+          <div class="tab-pane fade h-100" id="display-tab" role="tabpanel" aria-labelledby="display-tab-btn">
+            <div class="d-flex flex-column h-100">
+              <h5 class="pt-3">화면</h5>
+              <div class="mt-3 setting-display" id="display-list">
+                <!-- display-list -->
+              </div>
+
+              <footer class="footer mt-auto">
+                <div class="d-grid d-block mt-2 text-center">
+                  <a href="#" class="btn btn-outline-primary my-2" id="btn-display-save">저장</a>
+                </div>
+              </footer>
+            </div>
+          </div>
+
+          <div class="tab-pane fade h-100" id="theme-tab" role="tabpanel" aria-labelledby="theme-tab-btn">
+            <div class="d-flex flex-column h-100">
+              <h5 class="pt-3">테마</h5>
+              <div class="mt-3 setting-theme" id="theme-list">
+                <!-- theme-list -->
+              </div>
+
+              <footer class="footer mt-auto">
+                <div class="d-grid d-block mt-2 text-center">
+                  <a href="#" class="btn btn-outline-primary my-2" id="btn-theme-save">저장</a>
+                </div>
+              </footer>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal -->
+      <div class="modal fade px-5" id="modalCloseChoice" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content rounded-4 shadow">
+            <div class="modal-body p-4 text-center">
+              <h5 class="mb-0">앱을 시작하시겠습니까?</h5>
+              <p class="mb-0">설정창을 닫고, 자동으로 앱을 (재)시작합니다.</p>
+            </div>
+            <div class="modal-footer flex-nowrap p-0">
+              <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 m-0 rounded-0 border-right" id="btnSettingRelaunch"><strong>시작</strong></button>
+              <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 m-0 rounded-0" id="btnSettingExit" data-bs-dismiss="modal">종료</button>
+            </div>
+          </div>
+          </div>
+      </div>
+    </div>
+
+    <script>
+      window.$ = window.jQuery = require('jquery');
+    </script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./setting.js"></script>
+  </body>
+</html>

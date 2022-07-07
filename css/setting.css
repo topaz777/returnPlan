@@ -1,0 +1,124 @@
+@font-face {
+  font-family: 'Noto Sans KR';
+  src: local('Noto Sans KR'),
+  url(../assets/NotoSansKR-Medium.woff) format("woff")
+}
+
+html, body {
+  font-family: 'Noto Sans KR', sans-serif!important;
+}
+
+.row+.row {
+    margin-top: 1rem;
+}
+
+/* ------------------------------------------------------------------------- */
+
+.nav-link {
+  min-width: 100px;
+}
+
+.list-group {
+  width: auto;
+  /*max-width: 460px;*/
+  /* margin: 4rem auto; */
+}
+
+.list-group-checkable {
+  display: grid;
+  gap: .5rem;
+  border: 0;
+}
+.list-group-checkable .list-group-item {
+  cursor: pointer;
+  border-radius: .5rem;
+}
+.list-group-item-check {
+  position: absolute;
+  clip: rect(0, 0, 0, 0);
+  pointer-events: none;
+}
+.list-group-item-check:hover + .list-group-item {
+  background-color: var(--bs-light);
+}
+.list-group-item-check:checked + .list-group-item {
+  color: #fff;
+  background-color: var(--bs-blue);
+}
+.list-group-item-check[disabled] + .list-group-item,
+.list-group-item-check:disabled + .list-group-item {
+  pointer-events: none;
+  filter: none;
+  opacity: .5;
+}
+
+.input-group >.form-floating > input {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+/* ------------------------------------------------------------------------- */
+
+.cal-month,
+.cal-days,
+.cal-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  align-items: center;
+}
+.cal-month-name {
+  grid-column-start: 2;
+  grid-column-end: 7;
+  text-align: center;
+}
+.cal-weekday,
+.cal-btn {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  height: 3rem;
+  padding: 0;
+  border-radius: 0!important;
+  border: 0!important;
+}
+.cal-btn:not([disabled]) {
+  font-weight: 500;
+}
+
+.cal-btn[disabled] {
+  opacity: .5;
+}
+.cal-weekdays {
+  border-bottom: 1px solid;
+}
+.cal-btn:hover,
+.cal-btn:focus {
+  background-color: rgba(0, 0, 0, .05);
+}
+
+/* ------------------------------------------------------------------------- */
+
+.holiday-fixDate {
+  color: #fff!important;
+  background-color: #6c757d!important;
+  border-color: #6c757d!important;
+}
+
+.holiday-registered {
+  color: #000!important;
+  background-color: #ffc107!important;
+  border-color: #ffc107!important;
+}
+
+.holiday-excepted {
+  color: #000!important;
+  background-color: #e3e3e3!important;
+  border-color: #e3e3e3!important;
+}
+
+/* ------------------------------------------------------------------------- */
+
+::-webkit-scrollbar, ::-webkit-scrollbar-track, ::-webkit-scrollbar-thumb {
+  display: none;
+}

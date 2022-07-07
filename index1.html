@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html class="h-100">
+  <head>
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <link rel="stylesheet" href="./css/index1.css">
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <title>도서관 안내</title>
+  </head>
+
+  <body class="h-100">
+    <div class="w-100 h-100 text-center">
+
+      <header>
+        <div class="row h-100">
+          <div class="col header-left-col">
+            <div class="row h-100 align-items-center">
+              <div class="col">
+                <span class="header-text">대출일</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col header-right-col">
+            <div class="row h-100 align-items-center">
+              <div class="col">
+                <span class="header-text">반납일</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="container-fluid px-0 contentbody">
+        <div class="row row-cols-2 h-100">
+          <div class="col contentbody-left-col">
+            <div class="row h-100 align-items-center">
+              <div class="col">
+                <div class="row row-cols-2">
+                  <div class="col">
+                    <span class="year-value" id="year-loan">YYYY</span>
+                    <span class="year-unit">년</span>
+                  </div>
+                  <div class="col">
+                    <span class="day-value" id="day-loan">D요일</span>
+                  </div>
+                </div>
+                <div class="row row-cols-2">
+                  <div class="col">
+                    <span class="month-value" id="month-loan">MM</span>
+                    <span class="month-unit">월</span>
+                  </div>
+                  <div class="col">
+                    <span class="date-value" id="date-loan">DD</span>
+                    <span class="date-unit">일</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col contentbody-right-col">
+            <div class="row h-100 align-items-center">
+              <div class="col">
+                <div class="row row-cols-2">
+                  <div class="col">
+                    <span class="year-value" id="year-return">YYYY</span>
+                    <span class="year-unit">년</span>
+                  </div>
+                  <div class="col">
+                    <span class="day-value" id="day-return">D요일</span>
+                  </div>
+                </div>
+                <div class="row row-cols-2">
+                  <div class="col">
+                    <span class="month-value" id="month-return">MM</span>
+                    <span class="month-unit">월</span>
+                  </div>
+                  <div class="col">
+                    <span class="date-value" id="date-return">DD</span>
+                    <span class="date-unit">일</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="row h-100">
+          <div class="col footer-left-col">
+            <div class="row h-100 align-items-center">
+              <div class="col">
+                <span class="time-value" id="time-value">오전 HH:MI:SS</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col footer-right-col">
+            <div class="row h-100 align-items-center">
+              <div class="col">
+                <span class="loan_period-text">대출기간 </span>
+                <span class="loan_period-value" id="loan_period-value">NN</span>
+                <span class="loan_period-unit">일</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+
+    <script>
+      window.$ = window.jQuery = require('jquery');
+    </script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./index1.js"></script>
+
+  </body>
+</html>

@@ -1,0 +1,118 @@
+@font-face {
+  font-family: 'Do Hyeon';
+  src: local('Do Hyeon'),
+  url(../assets/DoHyeon-Regular.woff) format("woff")
+}
+
+html, body {
+  font-family: 'Do Hyeon', sans-serif!important;
+}
+
+.row+.row {
+    margin-top: 1rem;
+}
+
+/* ------------------------------------------------------------------------- */
+
+.nav-link {
+  min-width: 100px;
+}
+
+.list-group {
+  width: auto;
+  max-width: 460px;
+  margin: 4rem auto;
+}
+
+.list-group-checkable {
+  display: grid;
+  gap: .5rem;
+  border: 0;
+}
+.list-group-checkable .list-group-item {
+  cursor: pointer;
+  border-radius: .5rem;
+}
+.list-group-item-check {
+  position: absolute;
+  clip: rect(0, 0, 0, 0);
+  pointer-events: none;
+}
+.list-group-item-check:hover + .list-group-item {
+  background-color: var(--bs-light);
+}
+.list-group-item-check:checked + .list-group-item {
+  color: #fff;
+  background-color: var(--bs-blue);
+}
+.list-group-item-check[disabled] + .list-group-item,
+.list-group-item-check:disabled + .list-group-item {
+  pointer-events: none;
+  filter: none;
+  opacity: .5;
+}
+
+/* ------------------------------------------------------------------------- */
+
+.card-header,.card-footer {
+  background-color: #fff!important;
+}
+
+.card-custom {
+  height: calc(100%);
+}
+
+.weather-card {
+  background-color : #a6deff!important;
+}
+
+/* ------------------------------------------------------------------------- */
+
+.cal-month,
+.cal-days,
+.cal-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  align-items: center;
+}
+.cal-month-name {
+  grid-column-start: 2;
+  grid-column-end: 7;
+  text-align: center;
+}
+.cal-weekday,
+.cal-btn {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  height: 3rem;
+  padding: 0;
+}
+.cal-btn:not([disabled]) {
+  font-weight: 500;
+}
+
+.cal-btn[disabled] {
+  opacity: .5;
+}
+.cal-weekdays {
+  border-bottom: 1px solid;
+}
+
+/* ------------------------------------------------------------------------- */
+
+.imgs {
+  min-height: 230px;
+  max-height: 230px;
+}
+
+#rpd_date {
+  font-size: 100px;
+}
+
+/* ------------------------------------------------------------------------- */
+
+::-webkit-scrollbar, ::-webkit-scrollbar-track, ::-webkit-scrollbar-thumb {
+  display: none;
+}

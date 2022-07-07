@@ -1,0 +1,61 @@
+{
+  "name": "returnPlan",
+  "description": "Library Dashboard for return plan date.",
+  "version": "1.0.0",
+  "main": "main.js",
+  "author": {
+    "name": "Kais",
+    "email": "15449916@daum.net",
+    "url": "http://dls114.com/"
+  },
+  "keywords": [
+    "Library",
+    "Dashboard",
+    "Return",
+    "ReturnPlanDate"
+  ],
+  "scripts": {
+    "start": "electron .",
+    "postinstall": "electron-builder install-app-deps",
+    "pack": "electron-builder --publish=never"
+  },
+  "build": {
+    "appId": "kr.lacy.returnPlan",
+    "productName": "Return Planner",
+    "asar": true,
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "extraResources": [
+        "./extraResources/**",
+        "./config/**"
+      ],
+      "icon": "./assets/cat_256.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "directories": {
+      "output": "out"
+    }
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "15.1.0",
+    "electron-builder": "^22.13.1",
+    "electron-is-dev": "latest",
+    "nan": "^2.15.0"
+  },
+  "dependencies": {
+    "@popperjs/core": "^2.10.2",
+    "axios": "^0.22.0",
+    "bootstrap": "^5.2.0-beta1",
+    "electron-log": "^4.4.8",
+    "fast-xml-parser": "^3.20.3",
+    "jquery": "^3.6.0",
+    "oracledb": "^5.2.0",
+    "rimraf": "^3.0.2"
+  }
+}
