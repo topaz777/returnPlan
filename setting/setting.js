@@ -197,9 +197,21 @@ let configSave = function(item) {
   for(let i of el) {
     if(i.checked) {
       msg[item] = {"rec_key": i.getAttribute("data-rec_key")};
-      if(item == "grade") msg.grade.loan_period = i.getAttribute("data-loan_period");
-      if(item == "shelf") msg.shelf.code = i.getAttribute("data-code");
-      if(item == "manage_code") msg.manage_code.manage_code = i.getAttribute("data-manage_code");
+
+      switch(item) {
+        case "grade":
+          msg.grade.loan_period = i.getAttribute("data-loan_period");
+          msg.grade.code = i.getAttribute("data-code");
+          break;
+
+        case "shelf":
+          msg.shelf.code = i.getAttribute("data-code");
+          break;
+
+        case "manage_code":
+          msg.manage_code.manage_code = i.getAttribute("data-manage_code");
+          break;
+      }
     }
   }
 
@@ -390,7 +402,7 @@ ipcRenderer.on('theme-save-result', function (event, arg) {
 });
 
 ipcRenderer.on('grades', function (event, arg) {
-  let grades = JSON.parse(arg), elem = "";
+  let grades = JSON.parse(arg), elem = "", checkedElem = "";
 
   grades.forEach(function(grade, i){
     elem += '<input class="list-group-item-check listGrade" type="radio" name="listGrade" id="listGrade'+ i +'" data-rec_key="'+ grade.REC_KEY +'" data-code="'+ grade.CODE +'" data-description="'+ grade.DESCRIPTION +'" data-loan_period="'+ grade.LOAN_PERIOD +'" onchange="focusGradeSaveBtn()">';
@@ -398,14 +410,17 @@ ipcRenderer.on('grades', function (event, arg) {
     elem += '['+ grade.CODE + '] ' + grade.DESCRIPTION;
     elem += '<span class="d-block small opacity-50">'+ grade.LOAN_PERIOD +'일</span>';
     elem += '</label>';
+
+    if(grade.isChecked) checkedElem = 'listGrade'+ i;
   });
 
   document.getElementById("grade-list").innerHTML = elem;
+  if(checkedElem != "") document.getElementById(checkedElem).checked = true;
   document.getElementById("btn-grade-save").classList.remove("d-none");
 });
 
 ipcRenderer.on('shelves', function (event, arg) {
-  let shelves = JSON.parse(arg), elem = "";
+  let shelves = JSON.parse(arg), elem = "", checkedElem = "";
 
   shelves.forEach(function(shelf, i){
     elem += '<input class="list-group-item-check listShelf" type="radio" name="listShelf" id="listShelf'+ i +'" data-rec_key="'+ shelf.REC_KEY +'" data-code="'+ shelf.CODE +'" data-description="'+ shelf.DESCRIPTION +'" onchange="focusShelfSaveBtn()">';
@@ -413,13 +428,16 @@ ipcRenderer.on('shelves', function (event, arg) {
     elem += shelf.DESCRIPTION;
     elem += '<span class="d-block small opacity-50">'+ shelf.CODE +'</span>';
     elem += '</label>';
+
+    if(shelf.isChecked) checkedElem = 'listShelf'+ i;
   });
   document.getElementById("shelf-list").innerHTML = elem;
+  if(checkedElem != "") document.getElementById(checkedElem).checked = true;
   document.getElementById("btn-shelf-save").classList.remove("d-none");
 });
 
 ipcRenderer.on('manage_codes', function (event, arg) {
-  let manage_codes = JSON.parse(arg), elem = "";
+  let manage_codes = JSON.parse(arg), elem = "", checkedElem = "";
 
   manage_codes.forEach(function(manage_code, i){
     elem += '<input class="list-group-item-check listManage_code" type="radio" name="listManage_code" id="listManage_code'+ i +'" data-rec_key="'+ manage_code.REC_KEY +'" data-manage_code="'+ manage_code.MANAGE_CODE +'" data-lib_name="'+ manage_code.LIB_NAME +'" data-lib_code="'+ manage_code.LIB_CODE +'" onchange="focusManage_codeSaveBtn()">';
@@ -427,8 +445,11 @@ ipcRenderer.on('manage_codes', function (event, arg) {
     elem += manage_code.LIB_NAME;
     elem += '<span class="d-block small opacity-50">'+ manage_code.LIB_CODE +'</span>';
     elem += '</label>';
+
+    if(manage_code.isChecked) checkedElem = 'listManage_code'+ i;
   });
   document.getElementById("manage_code-list").innerHTML = elem;
+  if(checkedElem != "") document.getElementById(checkedElem).checked = true;
   document.getElementById("btn-manage_code-save").classList.remove("d-none");
 });
 
@@ -459,12 +480,12 @@ ipcRenderer.on('themes', function (event, arg) {
   let data = JSON.parse(arg), elem = "";
 
   data.themes.forEach(function(theme, i){
-    let isChecked = "", txt = "선택";
-    if(theme.filename == data.selected) isChecked = "checked", txt = "이용중";
+    let isChecked = "", isDisabled = "", txt = "선택";
+    if(theme.filename == data.selected) isChecked = " checked", isDisabled = " disabled", txt = "이용중";
     elem += '<div class="card mb-3"><img src="../theme/'+ theme.thumbnail +'" class="card-img-top" alt="...">';
     elem += '<div class="card-body"><h5 class="card-title">'+ theme.title +'</h5>';
     elem += '<p class="card-text">'+ theme.desc +'</p><div class="card-text">';
-    elem += '<input type="radio" class="btn-check listTheme" name="themes" id="theme'+ i +'" data-filename="'+ theme.filename +'" autocomplete="off" onchange="focusthemeSaveBtn()" '+ isChecked +'>';
+    elem += '<input type="radio" class="btn-check listTheme" name="themes" id="theme'+ i +'" data-filename="'+ theme.filename +'" autocomplete="off" onchange="focusthemeSaveBtn()" '+ isChecked + isDisabled +'>';
     elem += '<label class="btn btn-outline-success" for="theme'+ i +'">'+ txt +'</label></div></div></div>';
   });
 

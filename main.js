@@ -317,18 +317,16 @@ let checkConfigs = function() {
 // -----------------------------------------------------------------------------
 
 function connectionSave(settingInfo) {
-  // config = getConfig();
+  console.log("[Before-Connection-Save]", config);
 
   if(settingInfo.mode == "offline") {
-    gradeSave(settingInfo);
-    settingInfo.user = config.user;
-    settingInfo.password = config.password;
-    settingInfo.connectString = config.connectString;
+    config.loan_period = settingInfo.loan_period;
+  } else {
+    config.user = settingInfo.user;
+    config.password = settingInfo.password;
+    config.connectString = settingInfo.connectString;
   }
 
-  config.user = settingInfo.user;
-  config.password = settingInfo.password;
-  config.connectString = settingInfo.connectString;
   config.mode = settingInfo.mode;
 
   fs.writeFile(path.join(configDirPath, 'config.json'), JSON.stringify(config), 'utf8', function(error){
@@ -338,21 +336,26 @@ function connectionSave(settingInfo) {
 
     if(settingWindow) settingWindow.webContents.send('connection-save-result', JSON.stringify({"isSuccess": error ? false : true, "mode": settingInfo.mode}));
   });
+
+  console.log("[After-Connection-Save]", config);
 }
 
 function gradeSave(settingInfo) {
-  // config = getConfig();
+  console.log("[Before-Grade-Save]", config);
 
   config.loan_period = settingInfo.loan_period;
+  config.user_class_code = settingInfo.code;
 
   fs.writeFile(path.join(configDirPath, 'config.json'), JSON.stringify(config), 'utf8', function(error){
     if(error) console.log(error);
     if(settingWindow) settingWindow.webContents.send('grade-save-result', JSON.stringify({"isSuccess": error ? false : true}));
   });
+
+  console.log("[After-Grade-Save]", config);
 }
 
 function shelfSave(settingInfo) {
-  // config = getConfig();
+  console.log("[Before-Shelf-Save]", config);
 
   config.shelf_loc_code = settingInfo.code;
 
@@ -360,10 +363,12 @@ function shelfSave(settingInfo) {
     if(error) console.log(error);
     if(settingWindow) settingWindow.webContents.send('shelf-save-result', JSON.stringify({"isSuccess": error ? false : true}));
   });
+
+  console.log("[After-Shelf-Save]", config);
 }
 
 function manage_codeSave(settingInfo) {
-  // config = getConfig();
+  console.log("[Before-ManageCode-Save]", config);
 
   config.manage_code = settingInfo.manage_code;
 
@@ -371,6 +376,8 @@ function manage_codeSave(settingInfo) {
     if(error) console.log(error);
     if(settingWindow) settingWindow.webContents.send('manage_code-save-result', JSON.stringify({"isSuccess": error ? false : true}));
   });
+
+  console.log("[After-ManageCode-Save]", config);
 }
 
 function getFixDate(yyyy, fixDays) {
@@ -491,12 +498,16 @@ function holidaySave(settingInfo) {
 }
 
 function themeSave(settingInfo) {
+  console.log("[Before-Theme-Save]", config);
+
   config.theme = settingInfo.name;
 
   fs.writeFile(path.join(configDirPath, 'config.json'), JSON.stringify(config), 'utf8', function(error){
     if(error) console.log(error);
     if(settingWindow) settingWindow.webContents.send('theme-save-result', JSON.stringify({"isSuccess": error ? false : true}));
   });
+
+  console.log("[After-Theme-Save]", config);
 }
 
 // -----------------------------------------------------------------------------
@@ -719,6 +730,13 @@ async function getAllGrades() {
     result = await connection.execute(sql, binds, options);
     // console.dir(result.rows, { depth: null });
     // console.log(result.rows);
+
+    result.rows.forEach(function(grade, i){
+      let isChecked = false;
+      if(grade.CODE == config.user_class_code) isChecked = true;
+      grade.isChecked = isChecked;
+    });
+
     if(settingWindow) settingWindow.webContents.send('grades', JSON.stringify(result.rows));
     isSuccess = true;
   } catch (err) {
@@ -752,6 +770,13 @@ async function getAllShelves() {
     result = await connection.execute(sql, binds, options);
     // console.dir(result.rows, { depth: null });
     // console.log(result.rows);
+
+    result.rows.forEach(function(shelf, i){
+      let isChecked = false;
+      if(shelf.CODE == config.shelf_loc_code) isChecked = true;
+      shelf.isChecked = isChecked;
+    });
+
     if(settingWindow) settingWindow.webContents.send('shelves', JSON.stringify(result.rows));
     isSuccess = true;
   } catch (err) {
@@ -785,6 +810,13 @@ async function getAllManage_codes() {
     result = await connection.execute(sql, binds, options);
     // console.dir(result.rows, { depth: null });
     // console.log(result.rows);
+
+    result.rows.forEach(function(manage_code, i){
+      let isChecked = false;
+      if(manage_code.MANAGE_CODE == config.manage_code) isChecked = true;
+      manage_code.isChecked = isChecked;
+    });
+
     if(settingWindow) settingWindow.webContents.send('manage_codes', JSON.stringify(result.rows));
     isSuccess = true;
   } catch (err) {
