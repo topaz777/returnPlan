@@ -15,6 +15,14 @@
 			"title": "테마 2",
 			"desc": "현재일시, 반납예정일, 대출기간, 휴관일, 날씨.",
 			"isOnline": false
+		},
+		{
+			"rec_key": "3",
+			"filename": "index3.html",
+			"thumbnail": "index3.png",
+			"title": "테마 3",
+			"desc": "현재일시, 반납예정일, 휴관일, 날씨, 대출베스트, 신착도서.",
+			"isOnline": true
 		}
 	]
 }

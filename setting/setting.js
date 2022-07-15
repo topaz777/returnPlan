@@ -9,7 +9,6 @@ window.addEventListener('load', function () {
 
   connectionOpen();
   initCal();
-
   inputsEV();
   btnsEV();
   setDayHolidayBtnsEV();
@@ -33,6 +32,7 @@ let initForm = function(config) {
   if(config.mode != "") {
     document.getElementById("connection_"+ config.mode +"_btn").click();
     document.getElementById("check_"+ config.mode).classList.remove("d-none");
+    // localStorage.setItem("mode", config.mode);
   }
 
   if(config.user != "" && config.user  != "undefined" && config.user != undefined && config.user != null) document.getElementById('setting_user').value = config.user;
@@ -256,22 +256,17 @@ let themeSave = function() {
 
 
 let connectionSaveResult = function(result) {
-  for(let x of document.getElementsByClassName("using_mode")) x.classList.add("d-none");
-
-  document.getElementById("check_"+ result.mode).classList.remove("d-none");
-  localStorage.setItem("mode", result.mode);
-
   let btn_save = document.getElementById('btn-connection-'+ result.mode +'-save');
 
-  if(result.mode == "online") document.getElementById("btn-connection-test").disabled = false;
-
-  btn_save.classList.remove("btn-outline-primary");
-
   if(result.isSuccess) {
+    for(let x of document.getElementsByClassName("using_mode")) x.classList.add("d-none");
+    document.getElementById("check_"+ result.mode).classList.remove("d-none");
+    localStorage.setItem("mode", result.mode);
+    if(result.mode == "online") document.getElementById("btn-connection-test").disabled = false;
+    btn_save.classList.remove("btn-outline-primary");
     btn_save.disabled = true;
     btn_save.classList.toggle("btn-success", "btn-danger");
     btn_save.innerHTML = "저장완료";
-    // $("#btn-connection-"+ result.mode +"-save").html('저장완료');
   } else {
     btn_save.classList.toggle("btn-danger", "btn-success");
     btn_save.innerHTML = "저장실패";
@@ -479,12 +474,18 @@ ipcRenderer.on('displays', function (event, arg) {
 ipcRenderer.on('themes', function (event, arg) {
   let data = JSON.parse(arg), elem = "";
 
-  data.themes.forEach(function(theme, i){
+  data.themes.forEach(function(theme, i) {
     let isChecked = "", isDisabled = "", txt = "선택";
     if(theme.filename == data.selected) isChecked = " checked", isDisabled = " disabled", txt = "이용중";
     elem += '<div class="card mb-3"><img src="../theme/'+ theme.thumbnail +'" class="card-img-top" alt="...">';
-    elem += '<div class="card-body"><h5 class="card-title">'+ theme.title +'</h5>';
-    elem += '<p class="card-text">'+ theme.desc +'</p><div class="card-text">';
+    elem += '<div class="card-body"><h5 class="card-title">'+ theme.title;
+
+    if(theme.isOnline) {
+      elem += '<span class="badge rounded-1 fw-light bg-dark mx-3">온라인전용</span>';
+      if(localStorage.getItem("mode") == "offline") isDisabled = " disabled";
+    }
+
+    elem += '</h5><p class="card-text">'+ theme.desc +'</p><div class="card-text">';
     elem += '<input type="radio" class="btn-check listTheme" name="themes" id="theme'+ i +'" data-filename="'+ theme.filename +'" autocomplete="off" onchange="focusthemeSaveBtn()" '+ isChecked + isDisabled +'>';
     elem += '<label class="btn btn-outline-success" for="theme'+ i +'">'+ txt +'</label></div></div></div>';
   });

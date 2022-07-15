@@ -6,6 +6,8 @@ const axios = require('axios')
 const parser = require('fast-xml-parser');
 const log = require('electron-log');
 
+// require('update-electron-app')()
+
 // Overriding console.log -> electron-log
 console.log = log.log;
 
@@ -89,6 +91,7 @@ let createMainWindow = function() {
       contextIsolation: false
     }
   })
+
   mainWindow.loadFile(config.theme);
   mainWindow.setMenuBarVisibility(false);
   if(!app.isPackaged) mainWindow.webContents.openDevTools()
@@ -98,7 +101,7 @@ let createMainWindow = function() {
     getReturnPlanDate();
 
     mainWindow.webContents.send('owKey', JSON.stringify({"owKey": owKey}));
-    // getLoanBest();
+    getLoanBest();
   })
 
   mainWindow.once('ready-to-show', () => {
@@ -288,7 +291,7 @@ let checkConfigs = function() {
 
   switch (config.mode) {
     case "online":
-      if(!checkDbConfig(config)) return "connection-tab-btn";
+      if(!checkDbConfig()) return "connection-tab-btn";
 
       if(typeof config.loan_period  == "undefined" || config.loan_period  == "undefined" || config.loan_period  == "" || config.loan_period  == null) return "grade-tab-btn";
       if(typeof config.shelf_loc_code  == "undefined" || config.shelf_loc_code  == "undefined" || config.shelf_loc_code  == "" || config.shelf_loc_code  == null) return "shelf-tab-btn";
@@ -298,6 +301,9 @@ let checkConfigs = function() {
 
     case "offline":
       if(typeof config.loan_period  == "undefined" || config.loan_period  == "undefined" || config.loan_period  == "" || config.loan_period  == null) return "connection_offline_btn";
+
+      let data = getTheme().themes;
+      for(let x of data) if(config.theme == x.filename) if(x.isOnline) return "theme-tab-btn";
 
       break;
 
@@ -657,17 +663,17 @@ app.whenReady().then(() => {
 
   screen.on('display-added', function (display) {
     console.log("[EV] display-added");
-    console.log(display);
+    // console.log(display);
   })
 
   screen.on('display-removed', function (display) {
     console.log("[EV] display-removed");
-    console.log(display);
+    // console.log(display);
   })
 
   screen.on('display-metrics-changed', function (display) {
     console.log("[EV] display-metrics-changed");
-    console.log(display);
+    // console.log(display);
   })
 })
 
@@ -871,7 +877,7 @@ async function getHolidaysOnline() {
   return holidays;
 }
 
-// -
+// - 3 month
 async function getLoanBest() {
   let isSuccess = false;
   let connection;
@@ -880,7 +886,7 @@ async function getLoanBest() {
   try {
     let sql, binds, options, result;
     connection = await oracledb.getConnection(config);
-    sql = "SELECT RS.*, IB.TITLE, IB.AUTHOR, IB.PUBLISHER, IB.PUB_YEAR FROM (SELECT LS.CNT, BB.* FROM (SELECT BOOK_KEY, COUNT(BOOK_KEY) CNT FROM LS_WORK_T01 WHERE TO_CHAR(LOAN_DATE, 'YYYYMMDD') BETWEEN :startDate AND :endDate AND SHELF_LOC_CODE = :shelf_loc_code GROUP BY BOOK_KEY ORDER BY CNT DESC) LS LEFT JOIN (SELECT REC_KEY, SPECIES_KEY, EA_ISBN, REG_NO, WORKING_STATUS, SEPARATE_SHELF_CODE, CLASS_NO, BOOK_CODE, VOL_CODE, COPY_CODE FROM BO_BOOK_TBL) BB ON LS.BOOK_KEY = BB.REC_KEY WHERE EA_ISBN IS NOT NULL) RS LEFT JOIN (SELECT REC_KEY, TITLE, AUTHOR, PUBLISHER, PUB_YEAR FROM IDX_BO_TBL) IB ON RS.SPECIES_KEY = IB.REC_KEY WHERE ROWNUM < 11";
+    sql = "SELECT RS.*, IB.TITLE, IB.AUTHOR, IB.PUBLISHER, IB.PUB_YEAR FROM (SELECT LS.CNT, BB.* FROM (SELECT BOOK_KEY, COUNT(BOOK_KEY) CNT FROM LS_WORK_T01 WHERE TO_CHAR(LOAN_DATE, 'YYYYMMDD') BETWEEN :startDate AND :endDate AND SHELF_LOC_CODE = :shelf_loc_code GROUP BY BOOK_KEY ORDER BY CNT DESC) LS LEFT JOIN (SELECT REC_KEY, SPECIES_KEY, EA_ISBN, REG_NO, WORKING_STATUS, SEPARATE_SHELF_CODE, CLASS_NO, BOOK_CODE, VOL_CODE, COPY_CODE FROM BO_BOOK_TBL) BB ON LS.BOOK_KEY = BB.REC_KEY WHERE EA_ISBN IS NOT NULL) RS LEFT JOIN (SELECT REC_KEY, TITLE, AUTHOR, PUBLISHER, PUB_YEAR FROM IDX_BO_TBL) IB ON RS.SPECIES_KEY = IB.REC_KEY WHERE ROWNUM < 5";
     // sql = "SELECT BB.EA_ISBN, BB.REG_NO, BB.WORKING_STATUS, BB.SEPARATE_SHELF_CODE, BB.CLASS_NO, BB.BOOK_CODE, BB.VOL_CODE, BB.COPY_CODE, IB.TITLE, IB.AUTHOR, IB.PUBLISHER, IB.PUB_YEAR FROM (SELECT SPECIES_KEY, EA_ISBN, REG_NO, WORKING_STATUS, SEPARATE_SHELF_CODE, CLASS_NO, BOOK_CODE, VOL_CODE, COPY_CODE FROM BO_BOOK_TBL WHERE REC_KEY IN (SELECT BOOK_KEY FROM (SELECT BOOK_KEY, COUNT(BOOK_KEY) CNT FROM LS_WORK_T01 WHERE TO_CHAR(LOAN_DATE, 'YYYYMMDD') BETWEEN :startDate AND :endDate AND SHELF_LOC_CODE = :shelf_loc_code GROUP BY BOOK_KEY ORDER BY CNT DESC) WHERE ROWNUM < 30) AND EA_ISBN IS NOT NULL AND ROWNUM < 11) BB LEFT JOIN (SELECT REC_KEY, TITLE, AUTHOR, PUBLISHER, PUB_YEAR FROM IDX_BO_TBL) IB ON BB.SPECIES_KEY = IB.REC_KEY";
     binds = {
       startDate: date.getFullYear().toString() + (date.getMonth()-2).toString().padStart(2,0) + date.getDate().toString().padStart(2,0),
@@ -952,7 +958,7 @@ async function getNewBook() {
   try {
     let sql, binds, options, result;
     connection = await oracledb.getConnection(config);
-    sql = "SELECT BB.EA_ISBN, BB.REG_NO, BB.WORKING_STATUS, BB.SHELF_DATE, BB.SEPARATE_SHELF_CODE, BB.CLASS_NO, BB.BOOK_CODE, BB.VOL_CODE, BB.COPY_CODE, IB.TITLE, IB.AUTHOR, IB.PUBLISHER, IB.PUB_YEAR FROM (SELECT SPECIES_KEY, EA_ISBN, REG_NO, WORKING_STATUS, SEPARATE_SHELF_CODE, CLASS_NO, BOOK_CODE, VOL_CODE, COPY_CODE, TO_CHAR(SHELF_DATE, 'YYYY/MM/DD') SHELF_DATE FROM BO_BOOK_TBL WHERE SHELF_LOC_CODE = :shelf_loc_code AND EA_ISBN IS NOT NULL AND SHELF_DATE IS NOT NULL ORDER BY SHELF_DATE DESC) BB LEFT JOIN (SELECT REC_KEY, TITLE, AUTHOR, PUBLISHER, PUB_YEAR FROM IDX_BO_TBL) IB ON BB.SPECIES_KEY = IB.REC_KEY WHERE ROWNUM < 11";
+    sql = "SELECT BB.EA_ISBN, BB.REG_NO, BB.WORKING_STATUS, BB.SHELF_DATE, BB.SEPARATE_SHELF_CODE, BB.CLASS_NO, BB.BOOK_CODE, BB.VOL_CODE, BB.COPY_CODE, IB.TITLE, IB.AUTHOR, IB.PUBLISHER, IB.PUB_YEAR FROM (SELECT SPECIES_KEY, EA_ISBN, REG_NO, WORKING_STATUS, SEPARATE_SHELF_CODE, CLASS_NO, BOOK_CODE, VOL_CODE, COPY_CODE, TO_CHAR(SHELF_DATE, 'YYYY/MM/DD') SHELF_DATE FROM BO_BOOK_TBL WHERE SHELF_LOC_CODE = :shelf_loc_code AND EA_ISBN IS NOT NULL AND SHELF_DATE IS NOT NULL ORDER BY SHELF_DATE DESC) BB LEFT JOIN (SELECT REC_KEY, TITLE, AUTHOR, PUBLISHER, PUB_YEAR FROM IDX_BO_TBL) IB ON BB.SPECIES_KEY = IB.REC_KEY WHERE ROWNUM < 5";
     binds = {
       shelf_loc_code: config.shelf_loc_code
     };
@@ -1108,6 +1114,7 @@ ipcMain.on('theme', function (event, arg) {
     let data = getTheme();
     data.selected = config.theme;
 
+    console.log("[Before Send themes]", responseData);
     if(settingWindow) settingWindow.webContents.send('themes', JSON.stringify(data));
 
   } else if(responseData.action == "theme-save") {
@@ -1132,7 +1139,7 @@ async function getBookImage(isbn) {
       }
     })
     let result = parser.parse(response.data);
-    console.log(result.item);
+    // console.log(result.item);
 
     let resultObj = {
       "image": result.rss.channel.item.image,

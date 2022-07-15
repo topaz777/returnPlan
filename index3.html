@@ -2,120 +2,117 @@
 <html class="h-100">
   <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
     <link rel="stylesheet" href="./css/index3.css">
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
     <title>도서관 안내</title>
   </head>
 
-  <body class="d-flex h-100">
-    <div class="d-flex w-100 h-100 px-3 mx-auto flex-column" style="background-color:#f3f6f9">
-      <header class="mb-auto"></header>
+  <body class="h-100">
+    <div class="container-fluid p-0 h-100">
+      <div class="d-grid h-100" style="grid-template-columns: 1fr 2fr;">
+        <div class="d-flex flex-column p-5">
 
+          <img src="./assets/quiet.png" class="img-thumbnail rounded mx-auto d-block border-0 mb-5" alt="..." width="256">
 
-      <div class="row row-cols-3">
-
-<!-- ROW 1 -->
-        <div class="col-sm-6 col-md-3 mb-2">
-          <span class="fs-4">
-            반납예정일
-          </span>
-        </div>
-        <div class="col-sm-6 col-md-4 gx-sm-5 mb-2"></div>
-        <div class="col-md-5 d-none d-md-block gx-md-5 mb-2"></div>
-
-<!-- ROW 2 -->
-        <div class="col-sm-6 col-md-3 text-center">
-          <div class="card border-0 shadow text-center mx-auto d-block custom-calendar">
-            <div class="card-header bg-danger">
-              <span class="fs-2" id="rpd_month"></span>
+          <div class="row align-items-center">
+            <div class="col-3">
+              <h2 class="my-3 text-center">
+                <span class="badge rounded-1 text-bg-danger fw-light">반납예정</span>
+              </h2>
             </div>
-            <div class="card-body pt-4 align-middle">
-              <div>
-                <strong class="card-text" id="rpd_date"></strong>
-              </div>
-              <div>
-                <span id="rpd_day"></span>
-              </div>
+            <div class="col">
+              <h2 class="my-3 text-center fw-bold">
+                <span class="return-value year-value" id="year-return">YY</span>
+                <span class="return-unit year-unit">/</span>
+
+                <span class="return-value month-value" id="month-return">MM</span>
+                <span class="return-unit month-unit">/</span>
+
+                <span class="return-value date-value" id="date-return">DD</span>
+                <!-- <span class="return-unit date-unit"> </span> -->
+
+                <span class="return-unit day-unit">(</span>
+                <span class="return-value day-value fw-light" id="day-return">D</span>
+                <span class="return-unit day-unit">)</span>
+              </h2>
             </div>
           </div>
+
+          <div class="cal">
+            <div class="cal-weekdays text-muted">
+              <div class="cal-weekday text-danger">일</div>
+              <div class="cal-weekday">월</div>
+              <div class="cal-weekday">화</div>
+              <div class="cal-weekday">수</div>
+              <div class="cal-weekday">목</div>
+              <div class="cal-weekday">금</div>
+              <div class="cal-weekday text-primary">토</div>
+            </div>
+            <div class="cal-days" id="cal_date_area"></div>
+          </div>
+
+          <footer class="footer mt-auto py-1">
+            <h4 class="text-center">
+              <span class="loan-value year-value" id="year-loan">YYYY</span>
+              <span class="loan-unit year-unit">/</span>
+
+              <span class="loan-value month-value" id="month-loan">MM</span>
+              <span class="loan-unit month-unit">/</span>
+
+              <span class="loan-value date-value" id="date-loan">DD</span>
+              <span class="loan-unit date-unit"></span>
+
+              <span class="loan-unit day-unit">(</span>
+              <span class="loan-value day-value" id="day-loan">D</span>
+              <span class="loan-unit day-unit">)</span>
+
+              <span class="time-value" id="time-value">오전 HH:MI:SS</span>
+
+              <!-- <span class="loan_period-text">대출기간 </span>
+              <span class="loan_period-value" id="loan_period-value">NN</span>
+              <span class="loan_period-unit">일</span> -->
+            </h4>
+          </footer>
+
         </div>
 
-        <div class="col-sm-6 col-md-4 gx-sm-5">
-          <div class="card card-custom rounded-3 border-0 shadow">
-            <div class="card-body">
-              <div class="row">
-                <div class="col">
-                  <div class="cal">
-                    <div class="cal-weekdays text-muted">
-                      <div class="cal-weekday text-danger">일</div>
-                      <div class="cal-weekday">월</div>
-                      <div class="cal-weekday">화</div>
-                      <div class="cal-weekday">수</div>
-                      <div class="cal-weekday">목</div>
-                      <div class="cal-weekday">금</div>
-                      <div class="cal-weekday text-primary">토</div>
-                    </div>
-                    <div class="cal-days" id="cal_date_area"></div>
-                  </div>
+        <div class="d-flex flex-column p-5" style="background-color:#fafafa">
+
+          <div class="row">
+            <div class="card card-custom rounded-3 border-0">
+              <div class="card-body">
+                <div class="row align-items-center" id="weatherForecast">
+                  <!-- WeatherForecast Area -->
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="col-md-5 d-none d-md-block gx-md-5">
-          <div class="card card-custom rounded-3 border-0 d-block shadow weather-card">
-            <div class="card-header weather-card border-0 pt-6">
-              <div class="row justify-content-start" id="weatherCurrent">
-                <!-- CurrentWeather Area -->
-              </div>
-            </div>
-            <div class="card-body">
-              <div class="row" id="weatherForecast">
-                <!-- WeatherForecast Area -->
-              </div>
-            </div>
+
+          <div class="row mt-3 mb-2">
+            <div class="col-2"> <h3>Best</h3> </div>
+            <div class="col"> <hr /> </div>
           </div>
-        </div>
-      </div>
 
-<!-- ROW 3 -->
-      <div class="col-12 d-none d-md-block mt-3 mb-2">
-        <span class="fs-4">인기자료</span>
-      </div>
+          <div class="row my-auto" id="loanBest_contents"></div>
 
-<!-- ROW 4 -->
-      <div class="col-12 d-none d-md-block">
-        <div class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000" id="carousel_loanBest">
-          <div class="carousel-inner" id="loanBest_contents">
-            <!-- LoanBest Area -->
+
+          <div class="row mt-3 mb-2">
+            <div class="col-2"> <h3>New</h3> </div>
+            <div class="col"> <hr /> </div>
           </div>
+
+          <div class="row my-auto" id="newBook_contents"></div>
+
         </div>
       </div>
-
-<!-- ROW 5 -->
-      <div class="col-12 d-none d-xxl-block mt-3 mb-2">
-        <span class="fs-4">신착자료</span>
-      </div>
-
-<!-- ROW 6 -->
-      <div class="col-12 d-none d-xxl-block">
-        <div class="carousel slide" data-bs-ride="carousel" data-bs-interval="6000" id="carousel_newBook">
-          <div class="carousel-inner" id="newBook_contents">
-            <!-- NewBook Area -->
-          </div>
-        </div>
-      </div>
-
-      <footer class="mt-auto text-end"></footer>
     </div>
 
-    <script>
-      window.$ = window.jQuery = require('jquery');
-    </script>
+    <script>window.$ = window.jQuery = require('jquery');</script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="./renderer.js"></script>
+    <script src="./js/index3.js"></script>
 
   </body>
 </html>
