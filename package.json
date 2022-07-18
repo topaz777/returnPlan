@@ -8,6 +8,10 @@
     "email": "15449916@daum.net",
     "url": "http://dls114.com/"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/topaz777/returnPlan.git"
+  },
   "keywords": [
     "Library",
     "Dashboard",
@@ -17,7 +21,7 @@
   "scripts": {
     "start": "electron .",
     "postinstall": "electron-builder install-app-deps",
-    "pack": "electron-builder --publish=never"
+    "pack": "electron-builder --publish always"
   },
   "build": {
     "appId": "kr.lacy.returnPlan",
@@ -42,6 +46,11 @@
       "output": "out"
     }
   },
+  "publish": [{
+    "provider": "github",
+    "owner": "topaz777",
+    "repo": "returnPlan"
+  }],
   "license": "MIT",
   "devDependencies": {
     "electron": "15.1.0",
@@ -58,7 +67,6 @@
     "fast-xml-parser": "^3.20.3",
     "jquery": "^3.6.0",
     "oracledb": "^5.2.0",
-    "rimraf": "^3.0.2",
-    "update-electron-app": "^2.0.1"
+    "rimraf": "^3.0.2"
   }
 }
