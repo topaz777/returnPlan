@@ -1,7 +1,7 @@
 {
   "name": "returnPlan",
   "description": "Library Dashboard for return plan date.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "main.js",
   "author": {
     "name": "Kais",

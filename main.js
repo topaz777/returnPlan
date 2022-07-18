@@ -6,7 +6,11 @@ const axios = require('axios')
 const parser = require('fast-xml-parser');
 const log = require('electron-log');
 
-// require('update-electron-app')()
+require('update-electron-app')({
+  repo: 'topaz777/returnPlan',
+  updateInterval: '5 minutes',
+  logger: require('electron-log')
+})
 
 // Overriding console.log -> electron-log
 console.log = log.log;
@@ -34,7 +38,13 @@ extraResourcesDirPath = path.join(__dirname, app.isPackaged ? '/../extraResource
 iconPath = path.join(extraResourcesDirPath, 'tray.ico');
 oraClientPath = path.join(extraResourcesDirPath, 'instantclient_11_2');
 
-log.transports.file.resolvePath = () => path.join(extraResourcesDirPath, 'logs/main.log');
+// log.transports.file.resolvePath = () => path.join(extraResourcesDirPath, 'logs/main.log');
+
+let dateForLogName = new Date();
+let logName = dateForLogName.getFullYear().toString() + (dateForLogName.getMonth()+1).toString() + dateForLogName.getDate().toString();
+console.log("logName :", logName);
+log.transports.file.resolvePath = () => path.join(extraResourcesDirPath, 'logs/'+ logName +'.log');
+dateForLogName = null;
 
 oracledb.initOracleClient({ libDir: oraClientPath });
 
