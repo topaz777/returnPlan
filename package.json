@@ -1,7 +1,7 @@
 {
   "name": "returnPlan",
   "description": "Library Dashboard for return plan date.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "main.js",
   "author": {
     "name": "Kais",
@@ -21,7 +21,8 @@
   "scripts": {
     "start": "electron .",
     "postinstall": "electron-builder install-app-deps",
-    "pack": "electron-builder --publish always"
+    "pack": "electron-builder --publish never",
+    "publish": "electron-builder --publish always"
   },
   "build": {
     "appId": "kr.lacy.returnPlan",
@@ -35,7 +36,7 @@
         "./extraResources/**",
         "./config/**"
       ],
-      "icon": "./assets/cat_256.png"
+      "icon": "./assets/return_256.png"
     },
     "nsis": {
       "oneClick": false,
